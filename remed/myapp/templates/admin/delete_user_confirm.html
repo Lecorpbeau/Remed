@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Confirm Delete User{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4 text-warning"><i class="fas fa-exclamation-triangle"></i> Are you sure you want to delete {{ user.username }}?</h1>
+    <div class="card shadow-sm mb-4">
+        <div class="card-body text-center">
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Yes, Delete</button>
+                <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary"><i class="fas fa-times-circle"></i> Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h1 class="display-4 text-primary"><i class="fas fa-heart"></i> Welcome to Our Awesome App!</h1>
+    <p class="lead">We are thrilled to have you on board. Explore our services and get started.</p>
+    <hr class="my-4">
+    <p class="mb-4">We offer a range of services to meet your needs.</p>
+    <a class="btn btn-success btn-lg" href="{% url 'redirect_user' %}" role="button"><i class="fas fa-arrow-right"></i> Get Started</a>
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4"><i class="fas fa-user"></i> User Dashboard</h1>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white"><i class="fas fa-users"></i> Specialists</div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for user in specialists %}
+                        <li class="list-group-item">
+                            <i class="fas fa-user-md"></i> {{ user.username }}: {{ user.specialist.description }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white"><i class="fas fa-concierge-bell"></i> All Services</div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for service in services %}
+                        <li class="list-group-item">
+                            <i class="fas fa-cog"></i> {{ service.name }}: {{ service.description }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white"><i class="fas fa-calendar-check"></i> My Appointments</div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for appointment in appointments %}
+                        <li class="list-group-item">
+                            <i class="fas fa-calendar-alt"></i> {{ appointment.date }}: {{ appointment.service.name }} with {{ appointment.specialist.user.username }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-white"><i class="fas fa-comment"></i> Testimonials</div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for testimonial in testimonials %}
+                        <li class="list-group-item">
+                            <i class="fas fa-quote-left"></i> {{ testimonial.user.username }}: {{ testimonial.comment }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white"><i class="fas fa-comment-dots"></i> Leave a Comment</div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'add_comment' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="comment">Comment</label>
+                            <textarea name="comment" id="comment" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light text-dark"><i class="fas fa-info-circle"></i> About Us</div>
+                <div class="card-body">
+                    <p>A brief description about the organization...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .btn:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+    }
+</style>
+{% endblock %}

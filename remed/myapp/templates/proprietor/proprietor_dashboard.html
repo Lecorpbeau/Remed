@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Proprietor Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4"><i class="fas fa-user-tie"></i> Proprietor Dashboard</h1>
+    
+    <!-- Add Appointment Button --> 
+    <div class="text-center mb-4"> 
+        <a href="{% url 'add_appointment' %}" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> Add Appointment</a> 
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="card shadow-sm mt-5">
+        <div class="card-header bg-info text-white">
+            <h2><i class="fas fa-chart-bar"></i> Statistics</h2>
+        </div>
+        <div class="card-body">
+            <p><strong>Total Services:</strong> {{ total_services }}</p>
+            <p><strong>Total Clients:</strong> {{ total_clients }}</p>
+        </div>
+    </div>
+
+    <!-- Your Services Section -->
+    <div class="card shadow-sm mt-5">
+        <div class="card-header bg-success text-white">
+            <h2><i class="fas fa-concierge-bell"></i> Your Services</h2>
+        </div>
+        <div class="card-body">
+            <a class="btn btn-primary mb-3" href="{% url 'create_service' %}"><i class="fas fa-plus-circle"></i> Add New Service</a>
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for service in services %}
+                    <tr>
+                        <td>{{ service.name }}</td>
+                        <td>{{ service.description }}</td>
+                        <td>{{ service.price }}</td>
+                        <td>
+                            <a class="btn btn-info btn-sm" href="{% url 'edit_service' service.id %}"><i class="fas fa-edit"></i> Edit</a>
+                            <form method="post" action="{% url 'delete_service' service.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Your Clients Section -->
+    <div class="card shadow-sm mt-5">
+        <div class="card-header bg-warning text-white">
+            <h2><i class="fas fa-user-friends"></i> Your Clients</h2>
+        </div>
+        <div class="card-body">
+            <a class="btn btn-success mb-3" href="{% url 'create_client' %}"><i class="fas fa-user-plus"></i> Add New Client</a>
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for client in clients %}
+                    <tr>
+                        <td>{{ client.name }}</td>
+                        <td>{{ client.email }}</td>
+                        <td>
+                            <!-- Ajoutez ici les boutons d'action pour éditer et supprimer les clients -->
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="card shadow-sm mb-4"> 
+        <div class="card-header bg-primary text-white"><i class="fas fa-comments"></i> Comments from Other Users</div> 
+        <div class="card-body"> 
+            <ul class="list-group list-group-flush"> 
+                {% for comment in comments %} 
+                <li class="list-group-item"><strong>{{ comment.user.username }}:</strong> {{ comment.content }}</li> 
+                {% endfor %} 
+            </ul> 
+        </div> 
+    </div>
+
+    <!-- Section for Other Proprietary Features -->
+    <div class="card shadow-sm mb-4"> 
+        <div class="card-header bg-danger text-white"><i class="fas fa-cogs"></i> Owner Only Section</div> 
+        <div class="card-body"> 
+            <p>Special features available for Proprietors...</p> 
+        </div> 
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+from django.urls import path, include
+from django.contrib.auth import views as auth_views
+from . import views
+
+urlpatterns = [
+    path('', views.welcome, name='welcome'),
+    path('home/', views.home, name='home'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('signup/', views.signup_view, name='signup'), 
+    path('login/', views.login_view, name='login'), 
+    path('logout/', views.logout_view, name='logout'),
+    path('redirect_user/', views.redirect_user_view, name='redirect_user'),
+    path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    path('add_user/', views.add_user_view, name='add_user'),
+    path('edit_user/<int:pk>/', views.edit_user_view, name='edit_user'),
+    path('users/', views.user_list_view, name='user_list'),
+    path('delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
+    path('convert_to_proprietor/<int:user_id>/', views.convert_to_proprietor_view, name='convert_to_proprietor'),
+    path('proprietor_dashboard/', views.proprietor_dashboard, name='proprietor_dashboard'),
+    path('create_service/', views.create_service, name='create_service'),
+    path('clients/', views.client_list, name='client_list'),
+    path('create_client/', views.create_client, name='create_client'),
+    path('clients/edit/<int:client_id>/', views.edit_client, name='edit_client'),
+    path('clients/delete/<int:client_id>/', views.delete_client, name='delete_client'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('password_change/', auth_views.PasswordChangeView.as_view(template_name='password_change.html'), name='password_change'),
+    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'), name='password_change_done'),
+    path('profile/', views.profile, name='profile'),
+    path('add_appointment/', views.add_appointment, name='add_appointment'),
+    path('add_comment/', views.add_comment, name='add_comment'),
+    path('user_dashboard/', views.user_dashboard, name='user_dashboard'),
+    path('notifications/', views.notification_list_view, name='notification_list'),
+    path('add_specialist/', views.add_specialist_view, name='add_specialist'),
+    path('change_user_role/<int:user_id>/', views.change_user_role_view, name='change_user_role'),
+]

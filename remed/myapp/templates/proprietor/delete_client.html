@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Client{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4 text-danger"><i class="fas fa-user-times"></i> Delete Client</h1>
+    <div class="card shadow-sm mb-4">
+        <div class="card-body text-center">
+            <p>Are you sure you want to delete <strong>{{ client.first_name }} {{ client.last_name }}</strong>?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Yes, Delete</button>
+                <a href="{% url 'client_list' %}" class="btn btn-secondary"><i class="fas fa-times-circle"></i> Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

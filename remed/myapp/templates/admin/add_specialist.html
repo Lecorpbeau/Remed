@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Add Specialist{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4"><i class="fas fa-user-md"></i> Add Specialist</h1>
+    <div class="card shadow-sm mt-5">
+        <div class="card-header bg-primary text-white">
+            <h2><i class="fas fa-user-md"></i> Add New Specialist</h2>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success"><i class="fas fa-plus-circle"></i> Add Specialist</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
